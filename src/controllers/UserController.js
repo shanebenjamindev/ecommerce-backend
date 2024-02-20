@@ -55,7 +55,7 @@ const loginUser = async (req, res) => {
             sameSite: 'strict',
             path: '/',
         })
-        return res.status(200).json({...newReponse, refresh_token})
+        return res.status(200).json({ ...newReponse, refresh_token })
     } catch (e) {
         return res.status(404).json({
             message: e
@@ -150,7 +150,8 @@ const getDetailsUser = async (req, res) => {
 
 const refreshToken = async (req, res) => {
     try {
-        let token = req.headers.token.split(' ')[1]
+        const token = req.headers.cookie
+
         if (!token) {
             return res.status(200).json({
                 status: 'ERR',
@@ -159,6 +160,7 @@ const refreshToken = async (req, res) => {
         }
         const response = await JwtService.refreshTokenJwtService(token)
         return res.status(200).json(response)
+
     } catch (e) {
         return res.status(404).json({
             message: e
