@@ -19,7 +19,6 @@ const genneralRefreshToken = async (payload) => {
 }
 
 const refreshTokenJwtService = (token) => {
-    console.log(token);
     return new Promise((resolve, reject) => {
         try {
             jwt.verify(token, process.env.REFRESH_TOKEN, async (err, user) => {
