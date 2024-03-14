@@ -16,6 +16,7 @@ const createUser = (newUser) => {
                 })
             }
             const hash = bcrypt.hashSync(password, 10)
+
             const createdUser = await User.create({
                 name,
                 email,
@@ -80,6 +81,7 @@ const loginUser = (userLogin) => {
 
 const updateUser = (id, data) => {
     return new Promise(async (resolve, reject) => {
+
         try {
             const checkUser = await User.findOne({
                 _id: id
@@ -89,6 +91,10 @@ const updateUser = (id, data) => {
                     status: 'ERR',
                     message: 'The user is not defined'
                 })
+            }
+            
+            if (data.password) {
+                data.password = bcrypt.hashSync(data.password, 10);
             }
 
             const updatedUser = await User.findByIdAndUpdate(id, data, { new: true })
@@ -145,7 +151,7 @@ const deleteManyUser = (ids) => {
 const getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            const allUser = await User.find().sort({createdAt: -1, updatedAt: -1})
+            const allUser = await User.find().sort({ createdAt: -1, updatedAt: -1 })
             resolve({
                 status: 'OK',
                 message: 'Success',
