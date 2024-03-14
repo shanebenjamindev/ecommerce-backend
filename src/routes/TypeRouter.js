@@ -6,6 +6,6 @@ const TypeController = require('../controllers/TypeController');
 router.post('/create', TypeController.createType)
 router.put('/update/:id', TypeController.updateType)
 router.delete('/delete/:id', TypeController.deleteType)
-// router.get('/get-all', TypeController.getAllType)
+router.get('/get-all', TypeController.getAllTypeProduct)
 
 module.exports = router
