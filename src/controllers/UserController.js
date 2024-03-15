@@ -19,7 +19,7 @@ const createUser = async (req, res) => {
         } else if (password !== confirmPassword) {
             return res.status(200).json({
                 status: 'ERR',
-                message: 'The password is equal confirmPassword'
+                message: 'The password is not the same'
             })
         }
         const response = await UserService.createUser(req.body)
@@ -78,12 +78,18 @@ const updateUser = async (req, res) => {
             const { email } = req.body
             const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
             const isCheckEmail = reg.test(email)
-            
+
             data.email = isCheckEmail
             if (!isCheckEmail) {
                 return res.status(200).json({
                     status: 'ERR',
                     message: 'Please type correct email'
+                })
+            }
+            if (password !== confirmPassword) {
+                return res.status(200).json({
+                    status: 'ERR',
+                    message: 'The password is not the same'
                 })
             }
         }
