@@ -6,7 +6,7 @@ const createUser = async (req, res) => {
         const { name, email, password, confirmPassword, phone } = req.body
         const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
         const isCheckEmail = reg.test(email)
-        if (!email || !password || !confirmPassword) {
+        if (!name || !email || !password || !confirmPassword) {
             return res.status(200).json({
                 status: 'ERR',
                 message: 'The input is required'
@@ -73,6 +73,23 @@ const updateUser = async (req, res) => {
                 message: 'The userId is required'
             })
         }
+
+        if (data) {
+            const { email } = req.body
+            const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
+            const isCheckEmail = reg.test(email)
+            
+            data.email = isCheckEmail
+            if (!isCheckEmail) {
+                return res.status(200).json({
+                    status: 'ERR',
+                    message: 'Please type correct email'
+                })
+            }
+        }
+
+
+
         const response = await UserService.updateUser(userId, data)
         return res.status(200).json(response)
     } catch (e) {
