@@ -79,13 +79,13 @@ const updateUser = async (req, res) => {
             const reg = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/
             const isCheckEmail = reg.test(email)
 
-            data.email = isCheckEmail
             if (!isCheckEmail) {
                 return res.status(200).json({
                     status: 'ERR',
                     message: 'Please type correct email'
                 })
             }
+            
             if (data.password !== data.confirmPassword) {
                 console.log(data.confirmPassword);
                 return res.status(200).json({
