@@ -86,7 +86,8 @@ const updateUser = async (req, res) => {
                     message: 'Please type correct email'
                 })
             }
-            if (password !== confirmPassword) {
+            if (data.password !== data.confirmPassword) {
+                console.log(data.confirmPassword);
                 return res.status(200).json({
                     status: 'ERR',
                     message: 'The password is not the same'

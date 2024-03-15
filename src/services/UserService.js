@@ -101,7 +101,7 @@ const updateUser = (id, data) => {
             resolve({
                 status: 'OK',
                 message: 'SUCCESS',
-                data: updatedUser
+                data: updatedUser, 
             })
         } catch (e) {
             reject(e)
